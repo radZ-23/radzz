@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Linear Equation Solver</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+      #container {
+        margin-top: 50px;
+      }
+      input {
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Linear Equation Solver</h1>
+    <div id="container1">
+      <label for="inputEquation1"
+        >Enter the linear equation (e.g., Ax + By + C= 0):</label
+      >
+      <input
+        type="text"
+        id="inputEquation1"
+        placeholder="Enter equation"
+      /><br /><br />
+      <div id="container2">
+        <label for="inputEquation2"
+          >Enter the linear equation (e.g., Ax + By + C= 0):</label
+        >
+        <input
+          type="text"
+          id="inputEquation2"
+          placeholder="Enter equation"
+        /><br /><br />
+
+      <button onclick="solveEquation()">Solve</button><br /><br />
+
+      <p id="result"></p>
+    </div>
+
+    <script>
+      function solveEquation() {
+        // Get the equation string from the input field
+        const equation1 = document.getElementById("inputEquation1").value;
+        const equation2 = document.getElementById("inputEquation2").value;
+
+
+        // Split the equation string into components
+        const components1 = equation1.split(/\s*[xy=]\s*/);
+        const components2 = equation2.split(/\s*[xy=]\s*/);
+
+        if (components1.length === 4 && components2.length === 4) {
+          const a1 = parseFloat(components1[0]);
+          const b1 = parseFloat(components1[1]);
+          const c1 = parseFloat(components1[2]);
+          const a2 = parseFloat(components2[0]);
+          const b2 = parseFloat(components2[1]);
+          const c2 = parseFloat(components2[2]);
+            const p=a1/a2;
+            const q=b1/b2;
+            const r=c1/c2;
+
+          if (!isNaN(a1) && !isNaN(b1) && !isNaN(c1) && !isNaN(a2) && !isNaN(b2) && !isNaN(c2)) {
+            if (p===q) {
+              if(p===r){
+                document.getElementById("result").innerText = "Infinite Solutions.";
+              }
+              else{
+                document.getElementById("result").innerText = "No Solutions.";
+              }
+            }
+             else {
+              const x = (b1*c2-b2*c1)/(b2*a1-a2*b1);
+              const y = (c1*a2-c2*a1)/(b2*a1-a2*b1);
+              document.getElementById(
+                "result"
+              ).innerText = `The solution is x=${x},y = ${y}`;
+            }
+          } else {
+            document.getElementById("result").innerText =
+              "Invalid coefficients. Please enter valid numbers.";
+          }
+        } else {
+          document.getElementById("result").innerText =
+            "Invalid equation format. Please use the format ";
+        }
+      }
+    </script>
+<h1>Linear Equation Solver</h1>
+<div id="container">
+  <label for="inputEquation"
+    >Enter the linear equation (e.g., Ax + B = C):</label
+  >
+  <input
+    type="text"
+    id="inputEquation"
+    placeholder="Enter equation"
+  /><br /><br />
+
+  <button onclick="solveEquation()">Solve</button><br /><br />
+
+  <p id="result2"></p>
+</div>
+
+<script>
+  function solveEquation() {
+    // Get the equation string from the input field
+    const equation = document.getElementById("inputEquation").value;
+
+    // Split the equation string into components
+    const components = equation.split(/\s*[x=]\s*/);
+
+    if (components.length === 3) {
+      const a = parseFloat(components[0]);
+      const b = parseFloat(components[1]);
+      const c = parseFloat(components[2]);
+
+      if (!isNaN(a) && !isNaN(b) && !isNaN(c)) {
+        if (a === 0) {
+          document.getElementById("result").innerText =
+            "A cannot be 0. It's not a linear equation.";
+        } else {
+          const x = (c - b) / a;
+          document.getElementById(
+            "result2"
+          ).innerText = `The solution is x = ${x}`;
+        }
+      } else {
+        document.getElementById("result2").innerText =
+          "Invalid coefficients. Please enter valid numbers.";
+      }
+    } else {
+      document.getElementById("result2").innerText =
+        "Invalid equation format. Please use the format 'Ax + B = C'.";
+    }
+  }
+</script>
+<h1>Quadratic Equation Solver</h1>
+<div id="container3">
+  <label for="inputQuadratic"
+    >Enter the linear equation (e.g., Ax^2 + Bx + C = 0):</label
+  >
+  <input
+    type="text"
+    id="inputQuadratic"
+    placeholder="Enter equation"
+  /><br /><br />
+
+  <button onclick="solveQuadratic()">Solve</button><br /><br />
+
+  <p id="result3"></p>
+</div>
+<script>
+     function solveQuadratic() {
+        const equation = document.getElementById("inputQuadratic").value;
+        const extracted = equation.replace("x^2", "p");
+        const cmp = extracted.split(/\s*[xp=]\s*/);
+        if (cmp.length === 4) {
+          const a = cmp[0];
+          const b = cmp[1];
+          const c = cmp[2];
+          const d = (b * b )- (4 * a * c);
+          if (d >= 0) {
+            if (d === 0) {
+              const x = -(b / (2 * a));
+              const y = -(b / (2 * a));
+              document.getElementById(
+                "result3"
+              ).innerText = `Only one solution i.e. x = ${x}`;
+            } else {
+              const x = (-b - Math.sqrt(d)) / (2 * a);
+              const y = (-b + Math.sqrt(d)) / (2 * a);
+
+              document.getElementById(
+                "result3"
+              ).innerText = `Two solutions exist x1 = ${x}, x2= ${y}`;
+            }
+          } else {
+            document.getElementById("result3").innerText =
+              "Imaginary Solutions";
+          }
+        } else {
+          document.getElementById("result3").innerText =
+            "Invalid equation format. Please use the format 'Ax^2 + Bx +C = 0'.";
+        }
+      }
+</script>
+  </body>
+</html>
